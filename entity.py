@@ -3,6 +3,7 @@ class Remain:
   name:str
   _type:str
   path:str
+  cad_ver:str
 
   _name_id:str="编号"
   _name_name:str="名称"
@@ -14,3 +15,4 @@ class Remain:
     self.name=name
     self._type=_type
     self.path=path
+    self.cad_ver=''
