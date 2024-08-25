@@ -26,26 +26,34 @@ def find_regTbRemain_wrap(ui_remainList:sg.Table):
     return
     #end_func
 
+class UiId:
+  btnId_fileRemain="btnId_fileRemain"
+  btnId_regTbRemain="btnId_regTbRemain"
+  comboId_cadVer="comboId_cadVer"
+  btnId_cleanSelectVersion="btnId_cleanSelectVersion"
+  tableId_remainList="tableId_remainList"
+  btnId_quit="btnId_quit"
+
 def _ui_main():
   layout = [
-            [sg.Button('搜索文件残留', button_color=('white', 'black'), key='btnId_fileRemain'),
-            sg.Button('搜索注册表残留', button_color=('white', 'black'), key='btnId_regTbRemain'),],
-            [[sg.Combo(['autocad2021', 'autocad2022', 'autocad2000', 'autocad2001'], default_value='cad版本', key='comboId_cadVer')],
-              sg.Button('清理选中版本', button_color=('white', 'firebrick3'), key='btnId_cleanSelectVersion'),],
+            [sg.Button('搜索文件残留', button_color=('white', 'black'), key=UiId.btnId_fileRemain),
+            sg.Button('搜索注册表残留', button_color=('white', 'black'), key=UiId.btnId_regTbRemain),],
+            [[sg.Combo(['autocad2021', 'autocad2022', 'autocad2000', 'autocad2001'], default_value='cad版本', key=UiId.comboId_cadVer)],
+              sg.Button('清理选中版本', button_color=('white', 'firebrick3'), key=UiId.btnId_cleanSelectVersion),],
   [
     sg.Table([["-1..........", "名1..........", "类别1.........", "全路径1...........", "cad2005"],  ], 
     headings=[Remain._name_id, Remain._name_name, Remain._name__type, Remain._name_path, Remain._name_cad_ver],
     max_col_width=100,auto_size_columns=True, justification='right',
-    key='tableId_remainList'
+    key=UiId.tableId_remainList
     ),
   ],
 
-  [sg.Button('退出', button_color=('white', 'springgreen4'), key='btnId_quit')],
+  [sg.Button('退出', button_color=('white', 'springgreen4'), key=UiId.btnId_quit)],
   ]#end_layout
 
   window:sg.Window = sg.Window("CAD卸载清理工具", layout, size=(600,300),auto_size_buttons=True,   use_default_focus=True, finalize=True)
 
-  # window['btnId_cleanSelectVersion'].update(disabled=True)
+  # window[UiId.btnId_cleanSelectVersion].update(disabled=True)
 
   #变量类型声明
   event:str
@@ -59,15 +67,15 @@ def _ui_main():
   while True:
       event, values = window.read(timeout=100)
       if event == sg.WINDOW_CLOSED:  break
-      if event == 'btnId_quit':  break
+      if event == UiId.btnId_quit:  break
       if event == sg.TIMEOUT_EVENT:  continue
       print(f"event={event}, values={values}")
       #搜索文件残留
-      if event == 'btnId_fileRemain': find_fileRemain_wrap(window["tableId_remainList"])
+      if event == UiId.btnId_fileRemain: find_fileRemain_wrap(window[UiId.tableId_remainList])
       #搜索注册表残留
-      if event == 'btnId_regTbRemain': find_regTbRemain_wrap(window["tableId_remainList"])
+      if event == UiId.btnId_regTbRemain: find_regTbRemain_wrap(window[UiId.tableId_remainList])
       #清理给定版本的cad
-      if event == 'btnId_cleanSelectVersion': clean_cadVer(cadVer=values["comboId_cadVer"])
+      if event == UiId.btnId_cleanSelectVersion: clean_cadVer(cadVer=values[UiId.comboId_cadVer])
   #end_while
   window.close()
 
