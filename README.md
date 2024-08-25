@@ -1,1 +1,1 @@
-py_tool
+cad不正常卸载后清理:  https://www.bilibili.com/video/BV1eS4y1Q7VK
